@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/Home"
+        android:title="@string/home"
+        android:icon="@drawable/homeicon" />
+    <item android:id="@+id/Map"
+        android:title="@string/map"
+        android:icon="@drawable/mapicon" />
+    <item android:id="@+id/MyTrip"
+        android:title="@string/mytrip"
+        android:icon="@drawable/mytripicon" />
+    <item android:id="@+id/User"
+        android:title="@string/User"
+        android:icon="@drawable/usericon" />
+</menu>

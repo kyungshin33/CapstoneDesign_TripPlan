@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "175340329828",
+    "project_id": "capstonedesign-trip",
+    "storage_bucket": "capstonedesign-trip.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175340329828:android:70970ddb3c4fcbde177871",
+        "android_client_info": {
+          "package_name": "com.example.capstonedesign_tripplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175340329828-qgc14vvuo5g8eqsi6cesevvqfli9k8sf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.capstonedesign_tripplan",
+            "certificate_hash": "0d66483c7249d6158bb6dc66bff73a2e126f4b87"
+          }
+        },
+        {
+          "client_id": "175340329828-6b1bnovpk314fcf4vhv7e734rad69nj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmQyYf_JvNAu8z1dnJeO9x_3roQo-clpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175340329828-6b1bnovpk314fcf4vhv7e734rad69nj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

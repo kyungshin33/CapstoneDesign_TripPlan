@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyTripFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/MyToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/toolbar_division"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/MyToolbar"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/MyToolbar"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/addphoto_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/logo_test"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/addphoto_explain"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="top"
+                android:hint="@string/editText_hint" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/chooseBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Images" />
+
+        <Button
+            android:id="@+id/btnUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Photo Upload" />
+    </LinearLayout>
+
+</RelativeLayout>
