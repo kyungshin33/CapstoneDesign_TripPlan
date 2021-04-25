@@ -8,7 +8,7 @@ import java.util.List;
 public class Trip {
     private int index;
     private String title;
-    private String name;
+    private String name; //구글아이디
     private String email;
     private GeoPoint location;
     private String date;

@@ -1,5 +1,7 @@
 package com.example.capstonedesign_tripplan;
 
+import android.app.Activity;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -19,15 +22,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
+
+
 public class Singletone{
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "DocSnippets";
-    private List<Trip> TripList;
-    private List<MyTrip> MyTripList;
+
     private Singletone() {
 
-        TripList = new ArrayList<>();
-        MyTripList = new ArrayList<>();
+        List<Trip> tripList = new ArrayList<>();
+        List<MyTrip> myTripList = new ArrayList<>();
     }
     private static class SingletonHolder {
         public static final Singletone INSTANCE = new Singletone();
@@ -53,20 +58,32 @@ public class Singletone{
                 });
         return UserList;
     }
+
+    public Observable<ArrayList<SharePlan>> SelectSharePlan() {
+        return Observable.create(item -> {
+            ArrayList<SharePlan> result = new ArrayList<>();
+            db.collection("Contents")
+                    .orderBy("tm", Query.Direction.DESCENDING)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                result.add(document.toObject(SharePlan.class));
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                        item.onNext(result);
+                        item.onComplete();
+                    });
+        });
+    }
+
     public void InsertDate(String ColPath, Object data) {
         db.collection(ColPath)
                 .add(data)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
+                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
+                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 }

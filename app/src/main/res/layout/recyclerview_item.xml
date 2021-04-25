@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="580dp"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/recyclerview_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:ellipsize="end"
+        android:gravity="center|left"
+        android:maxLines="1"
+        android:paddingLeft="15dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="제목"
+        android:textAllCaps="false"
+        android:textSize="20sp" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/veiwpager"
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="420dp">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <TextView
+        android:id="@+id/recyclerview_contents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:padding="10dp"
+        android:text="내용"
+        android:textSize="20sp" />
+
 </LinearLayout>

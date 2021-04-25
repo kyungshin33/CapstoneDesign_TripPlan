@@ -23,7 +23,6 @@
         android:layout_below="@id/MyToolbar"
         android:background="@color/colorPrimary"
         android:orientation="horizontal" />
-
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"

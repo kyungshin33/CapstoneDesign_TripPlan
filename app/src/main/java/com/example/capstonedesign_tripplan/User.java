@@ -2,20 +2,11 @@ package com.example.capstonedesign_tripplan;
 
 public class User {
     private int num;
-    private String name;
-    private String email;
-    private String tel;
-    private String address;
+    private String name; //구글아이디
 
-    public User() {
-
-    }
-    public User(int num, String name, String email, String tel, String address) {
+    public User(int num, String name) {
         this.num = num;
         this.name = name;
-        this.email = email;
-        this.tel = tel;
-        this.address = address;
     }
 
     public int getNum() {
@@ -32,29 +23,5 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 }

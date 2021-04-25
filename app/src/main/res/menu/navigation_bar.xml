@@ -3,9 +3,6 @@
     <item android:id="@+id/Home"
         android:title="@string/home"
         android:icon="@drawable/homeicon" />
-    <item android:id="@+id/Map"
-        android:title="@string/map"
-        android:icon="@drawable/mapicon" />
     <item android:id="@+id/MyTrip"
         android:title="@string/mytrip"
         android:icon="@drawable/mytripicon" />
