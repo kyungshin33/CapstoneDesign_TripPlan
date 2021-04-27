@@ -1,4 +1,4 @@
-package com.example.capstonedesign_tripplan;
+package com.example.capstonedesign_tripplan.fragment;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.capstonedesign_tripplan.R;
 
 public class UserFragment extends Fragment {
    @Override

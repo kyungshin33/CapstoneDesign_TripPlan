@@ -1,15 +1,18 @@
-package com.example.capstonedesign_tripplan;
+package com.example.capstonedesign_tripplan.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,31 +23,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.capstonedesign_tripplan.activity.Add_Contents_Activity;
+import com.example.capstonedesign_tripplan.R;
+import com.example.capstonedesign_tripplan.RecyclerViewDecoration;
+import com.example.capstonedesign_tripplan.activity.MainActivity;
+import com.example.capstonedesign_tripplan.adapter.RecyclerView_Adapter;
+import com.example.capstonedesign_tripplan.Singletone;
+import com.example.capstonedesign_tripplan.data.SharePlan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Observable;
 
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.Nullable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 public class HomeFragment extends Fragment {
-    private static final int REQUEST_TAKE_ALBUM = 1;
+    private static final int GALLEY_CODE = 1;
+    private static final int ALL_PERMISSION_OK = 100;
     RecyclerView_Adapter recyclerView_adapter;
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -52,12 +54,14 @@ public class HomeFragment extends Fragment {
     Context context;
     ArrayList<SharePlan> sharePlans;
     Disposable backgroundtask;
+    ArrayList<String> imagePath;
     private FirebaseFirestore store = FirebaseFirestore.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = view.findViewById(R.id.recyclerview);
+        //permissionCheck = new PermissionCheck(MainActivity.this);
         button = view.findViewById(R.id.btn);
         swipeRefreshLayout = view.findViewById(R.id.srl_commodities);
         return view;
@@ -96,16 +100,27 @@ public class HomeFragment extends Fragment {
                 });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+    //@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void getAlbum() {
-        // 앨범 호출
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(Intent.createChooser(intent, "다중 선택은 '포토'를 선택하세요."), REQUEST_TAKE_ALBUM);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("content://media/internal/images/media"));
+         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+         intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+         startActivityForResult(intent,GALLEY_CODE);
+
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /*if (data == null) {
+          Log.d("데이터", "data = null");
+        } else {
+            ClipData clipData = data.getClipData();
+
+            if (clipData.getItemCount() > 9) {
+                Toast.makeText(context,"사진은 9장까지 선택 가능",Toast.LENGTH_LONG).show();
+            } else if (clipData.getItemCount() == 1) {
+                imagePath = getActivity().getPath
+            }
+        }*/
         Log.i("onActivityResult", "CALL");
         super.onActivityResult(requestCode, resultCode, data);
         Log.i("result", String.valueOf(resultCode));
@@ -138,11 +153,10 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getActivity(), Add_Contents_Activity.class);
             intent.putStringArrayListExtra("list", imageList);
             startActivity(intent);
+            getActivity().finish();
         } else {
             Toast.makeText(getActivity(), "사진 선택을 취소하였습니다.", Toast.LENGTH_SHORT).show();
         }
 
     }
-
-
 }

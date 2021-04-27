@@ -1,4 +1,4 @@
-package com.example.capstonedesign_tripplan;
+package com.example.capstonedesign_tripplan.data;
 
 import com.google.firebase.firestore.GeoPoint;
 

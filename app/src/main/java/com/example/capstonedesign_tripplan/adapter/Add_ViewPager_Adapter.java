@@ -1,8 +1,6 @@
-package com.example.capstonedesign_tripplan;
+package com.example.capstonedesign_tripplan.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.capstonedesign_tripplan.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Add_ViewPager_Adapter extends RecyclerView.Adapter<Add_ViewPager_Adapter.ViewPagerHolder>{
     ArrayList<String> imageList;
@@ -52,6 +50,7 @@ public class Add_ViewPager_Adapter extends RecyclerView.Adapter<Add_ViewPager_Ad
             this.uri = uri;
             Glide.with(context)
                     .load(uri)
+                    .error(R.drawable.city)
                     .into(imageView);
             Log.d("BindData",imageList.toString());
         }

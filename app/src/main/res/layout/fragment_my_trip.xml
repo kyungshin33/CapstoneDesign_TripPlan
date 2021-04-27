@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyTripFragment">
+    tools:context=".fragment.MyTripFragment">
 
     <LinearLayout
         android:id="@+id/toolbar_division"
@@ -19,11 +19,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView2"
+            <EditText
+                android:id="@+id/text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
 
             <Button
                 android:id="@+id/button2"

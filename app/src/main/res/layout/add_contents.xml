@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyTripFragment">
+    tools:context=".fragment.MyTripFragment">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/MyToolbar"
             android:layout_width="match_parent"
-            android:layout_height="56dp">
+            android:layout_height="50dp">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/logo_test"/>
+                android:src="@drawable/tripplannerlogo" />
         </androidx.appcompat.widget.Toolbar>
         <EditText
             android:id="@+id/add_title"
@@ -28,9 +30,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/add_title"
-            android:orientation="horizontal">
-
-
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/add_contents_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/add_viewpager"
                 android:layout_width="match_parent"
@@ -42,32 +47,33 @@
         <LinearLayout
             android:id="@+id/linear_bottom"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/linear"
             android:orientation="vertical">
+
             <EditText
                 android:id="@+id/addphoto_explain"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="143dp"
                 android:gravity="top"
                 android:hint="내용을 입력해주세요." />
-            <Button
-                android:id="@+id/btnChoose"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Images" />
 
             <Button
                 android:id="@+id/btnUpload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Upload" />
+                android:text="업로드" />
+            <Button
+                android:id="@+id/btnLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="장소 추가하기" />
 
             <Button
                 android:id="@+id/btnCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="cancel" />
+                android:text="취소" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

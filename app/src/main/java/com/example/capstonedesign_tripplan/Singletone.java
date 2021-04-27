@@ -1,26 +1,18 @@
 package com.example.capstonedesign_tripplan;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
+import com.example.capstonedesign_tripplan.data.MyTrip;
+import com.example.capstonedesign_tripplan.data.SharePlan;
+import com.example.capstonedesign_tripplan.data.Trip;
+import com.example.capstonedesign_tripplan.data.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Observable;
 

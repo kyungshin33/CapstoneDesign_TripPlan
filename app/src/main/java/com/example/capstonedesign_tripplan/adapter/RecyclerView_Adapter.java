@@ -1,17 +1,18 @@
-package com.example.capstonedesign_tripplan;
+package com.example.capstonedesign_tripplan.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.capstonedesign_tripplan.R;
+import com.example.capstonedesign_tripplan.data.SharePlan;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adap
         this.context = context;
     }
 
-    void updateList(ArrayList<SharePlan> sharePlans){
+    public void updateList(ArrayList<SharePlan> sharePlans){
         Log.d("adapter","update");
         this.sharePlans.clear();
         this.sharePlans = sharePlans;

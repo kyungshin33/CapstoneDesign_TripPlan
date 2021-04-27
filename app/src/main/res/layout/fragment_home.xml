@@ -24,6 +24,11 @@
             app:layout_scrollFlags="scroll|enterAlways" />
 
 
+        <ImageView
+            android:id="@+id/Logo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/tripplannerlogo" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_collaborate"

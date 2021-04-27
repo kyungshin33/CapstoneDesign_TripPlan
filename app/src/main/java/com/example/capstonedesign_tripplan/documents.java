@@ -1,18 +1,32 @@
 package com.example.capstonedesign_tripplan;
 
-public class Location {
-    String place_name;
-    String distance;
-    String place_url;
-    String category_name;
-    String address_name;
-    String road_address_name;
-    String id;
-    String phone;
-    String category_group_code;
-    String category_group_name;
-    String x;
-    String y;
+import com.google.gson.annotations.SerializedName;
+
+public class documents {
+    @SerializedName("place_name")
+    public String place_name;
+    @SerializedName("distance")
+    public String distance;
+    @SerializedName("place_url")
+    public String place_url;
+    @SerializedName("category_name")
+    public String category_name;
+    @SerializedName("address_name")
+    public String address_name;
+    @SerializedName("road_address_name")
+    public String road_address_name;
+    @SerializedName("id")
+    public String id;
+    @SerializedName("phone")
+    public String phone;
+    @SerializedName("category_group_code")
+    public String category_group_code;
+    @SerializedName("category_group_name")
+    public String category_group_name;
+    @SerializedName("x")
+    public String x;
+    @SerializedName("y")
+    public String y;
 
     public String getPlace_name() {
         return place_name;
@@ -109,4 +123,5 @@ public class Location {
     public void setY(String y) {
         this.y = y;
     }
+
 }
