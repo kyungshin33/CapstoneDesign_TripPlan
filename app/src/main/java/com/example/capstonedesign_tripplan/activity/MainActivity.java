@@ -8,6 +8,7 @@ import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int REQUEST_PERMISSION_CODE = 0;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE = 0;
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private HomeFragment fragmentHome = new HomeFragment();
     private MyTripFragment fragmentMyTrip = new MyTripFragment();
@@ -44,13 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                //권한을 거절하면 재 요청을 하는 함수
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_RESULT);
-            }
-        }
+        checkSelfPermission();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout, fragmentHome).commitAllowingStateLoss();
@@ -74,53 +69,85 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    public void checkSelfPermission() {
+        String temp = ""; //파일 읽기 권한 확인
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE);
+            Log.d("파일 읽기 권한" , String.valueOf(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)));
+        } //파일 쓰기 권한 확인
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE);
+            Log.d("파일 쓰기 권한" , String.valueOf(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)));
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE);
+            Log.d("파일 카메라 권한" , String.valueOf(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)));
+        }
+        //Log.d("파일 읽기 권한" , String.valueOf(PackageManager.PERMISSION_GRANTED));
+
+
+
+    }
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if (PERMISSIONS_REQUEST_RESULT == requestCode) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "권한 요청이 됐습니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "권한 요청을 해주세요.", Toast.LENGTH_SHORT).show();
-                finish();
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //권한을 허용 했을 경우
+        if(requestCode == 0){
+            Log.d("MainActivity","권한 허용 : " + permissions[1]);
+            int length = permissions.length;
+            for (int i = 0; i < length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    // 동의
+                    Log.d("MainActivity","권한 허용 : " + permissions[i]);
+                }
             }
-            return;
         }
     }
-    /*@Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
-        switch (requestCode){
-            case REQUEST_PERMISSION_CODE:
-            if(grantResults[0]==PackageManager.PERMISSION_GRANTED)
-            {
-                //Toast toast=Toast.makeText(this,"기능 사용을 위한 권한 동의가 필요합니다.", Toast.LENGTH_SHORT);
-                Log.d("권한","권한 ->");
-            } else {
-            //거부했을 경우
-            Toast toast=Toast.makeText(this,"기능 사용을 위한 권한 동의가 필요합니다.", Toast.LENGTH_SHORT);
-            toast.show();
-        } break;
-        }
-    }*/
-    /*private void getHashKey(){
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (packageInfo == null)
-            Log.e("KeyHash", "KeyHash:null");
+    /*private void requestReadExternalStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
 
-        for (Signature signature : packageInfo.signatures) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            } catch (NoSuchAlgorithmException e) {
-                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE);
+                // MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE : {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }*/
-
-
 }

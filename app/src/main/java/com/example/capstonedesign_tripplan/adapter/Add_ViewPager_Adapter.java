@@ -50,7 +50,6 @@ public class Add_ViewPager_Adapter extends RecyclerView.Adapter<Add_ViewPager_Ad
             this.uri = uri;
             Glide.with(context)
                     .load(uri)
-                    .error(R.drawable.city)
                     .into(imageView);
             Log.d("BindData",imageList.toString());
         }

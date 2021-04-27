@@ -102,11 +102,12 @@ public class HomeFragment extends Fragment {
 
     //@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void getAlbum() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("content://media/internal/images/media"));
-         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
-         intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-         startActivityForResult(intent,GALLEY_CODE);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, GALLEY_CODE);
 
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
